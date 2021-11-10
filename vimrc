@@ -54,6 +54,8 @@ if v:version > 704 || v:version == 704 && has('patch2201') " signcolumn wasn't a
 endif
 set complete-=t " Don't use tags for autocomplete
 set updatetime=200
+set clipboard=unnamed
+set autoread
 
 if version >= 703
   set undodir=~/.vim/undodir
@@ -63,7 +65,7 @@ endif
 set undolevels=1000 "maximum number of changes that can be undone
 
 " Color
-colorscheme vibrantink
+colorscheme nord
 
 augroup Drakefile
   au!
@@ -135,11 +137,12 @@ vnoremap * :<C-u>call <SID>VSetSearch()<CR>/<CR>
 let g:ale_enabled = 1                     " Enable linting by default
 let g:ale_lint_on_text_changed = 'normal' " Only lint while in normal mode
 let g:ale_lint_on_insert_leave = 1        " Automatically lint when leaving insert mode
-let g:ale_set_signs = 1                   " Enable signs showing in the gutter to reduce interruptive visuals
+"let g:ale_set_signs = 1                   " Enable signs showing in the gutter to reduce interruptive visuals
+let g:ale_sign_column_always = 1
 let g:ale_linters_explicit = 1            " Only run linters that are explicitly listed below
-let g:ale_set_highlights = 0              " Disable highlighting as it interferes with readability and accessibility
-let g:ale_linters = {}
-let g:ale_fixers = {}
+"let g:ale_set_highlights = 0              " Disable highlighting as it interferes with readability and accessibility
+let g:ale_linters = { 'typescript': ['eslint'] }
+let g:ale_fixers = { 'typescript': ['eslint'] }
 
 if filereadable(expand(".ale_fix_on_save"))
   " add an empty file named .ale_fix_on_save
@@ -165,6 +168,7 @@ let coffee_no_trailing_space_error = 1
 
 let NERDTreeIgnore=['\.pyc$', '\.o$', '\.class$', '\.lo$', 'tmp']
 let NERDTreeHijackNetrw = 0
+let NERDTreeShowHidden=1
 
 let g:netrw_banner = 0
 
