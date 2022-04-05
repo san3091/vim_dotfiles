@@ -63,9 +63,13 @@ if version >= 703
   set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 endif
 set undolevels=1000 "maximum number of changes that can be undone
+inoremap jk <Esc>
 
 " Color
-colorscheme nord
+colorscheme dracula
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
 
 augroup Drakefile
   au!
@@ -137,20 +141,40 @@ vnoremap * :<C-u>call <SID>VSetSearch()<CR>/<CR>
 let g:ale_enabled = 1                     " Enable linting by default
 let g:ale_lint_on_text_changed = 'normal' " Only lint while in normal mode
 let g:ale_lint_on_insert_leave = 1        " Automatically lint when leaving insert mode
-"let g:ale_set_signs = 1                   " Enable signs showing in the gutter to reduce interruptive visuals
+let g:ale_set_signs = 1                   " Enable signs showing in the gutter to reduce interruptive visuals
 let g:ale_sign_column_always = 1
 let g:ale_linters_explicit = 1            " Only run linters that are explicitly listed below
-"let g:ale_set_highlights = 0              " Disable highlighting as it interferes with readability and accessibility
-let g:ale_linters = { 'typescript': ['eslint'] }
-let g:ale_fixers = { 'typescript': ['eslint'] }
+let g:ale_set_highlights = 0              " Disable highlighting as it interferes with readability and accessibility
 
-if filereadable(expand(".ale_fix_on_save"))
-  " add an empty file named .ale_fix_on_save
-  " in any repository to enable ale fixers
-  " otherwise set the below line in your vimrc_local
-  " without the conditional
-  let g:ale_fix_on_save = 1
-endif
+inoremap <silent><expr> <c-space> coc#refresh()
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+let g:coc_snippet_next = '<tab>'
+
+let g:ale_linters = {
+      \   'javascript': ['eslint'],
+      \   'typescript': ['eslint'],
+      \   'typescriptreact': ['eslint'],
+      \   'jsx': ['eslint'],
+      \   'tsx': ['eslint'],
+      \   'ruby': ['rubocop'],
+      \   'go': ['gofmt'],
+      \}
+let g:ale_fixers = {
+      \   'javascript': ['eslint'],
+      \   'typescript': ['eslint'],
+      \   'typescriptreact': ['eslint'],
+      \   'jsx': ['eslint'],
+      \   'tsx': ['eslint'],
+      \   'ruby': ['rubocop'],
+      \   'go': ['gofmt'],
+      \}
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+let g:ale_javascript_eslint_options = '--cache --cache-location=~/.cache/eslintcache'
+let g:ale_typescript_eslint_options = '--cache --cache-location=~/.cache/eslintcache'
 
 let html_use_css=1
 let html_number_lines=0
@@ -229,7 +253,7 @@ let g:go_highlight_trailing_whitespace_error = 0
 
 let test#strategy = "vimux"
 let test#custom_runners = {}
-let test#python#runner = 'pytest'
+let test#python#runner = 'unittest'
 let nose_test = system('grep -q "nose" requirements.txt')
 if v:shell_error == 0
   let test#python#runner = 'nose'

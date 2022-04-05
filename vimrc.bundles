@@ -11,6 +11,7 @@ endif
 Plug 'akhaku/vim-java-unused-imports'
 Plug 'aklt/plantuml-syntax'
 Plug 'arthurxavierx/vim-caser'
+Plug 'dracula/vim', { 'as': 'dracula' }
 " Show git diff via Vim sign column.
 Plug 'airblade/vim-gitgutter'
 Plug 'google/vim-maktaba'
@@ -59,6 +60,8 @@ Plug 'mileszs/ack.vim'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pangloss/vim-javascript'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
+Plug 'othree/html5.vim'
 Plug 'mxw/vim-jsx'
 Plug 'pgr0ss/vim-github-url'
 Plug 'prabirshrestha/async.vim'
